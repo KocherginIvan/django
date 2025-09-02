@@ -2,6 +2,8 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from parser.settings import MEDIA_ROOT
+import os
 def read_data_json(name):
     with open(f'{name}.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -38,8 +40,14 @@ def parse_soup(soup):
         book['Название книги'] = title_href_img_href[0]
         book['Автор'] = author
         book['Краткое содержание'] = content_book
-        book['Ссылка на книгу'] = title_href_img_href[1]
-        book['Ссылка на обложку'] = title_href_img_href[2]
+        book['Ссылка на книгу'] = title_href_img_href[2]
+        if title_href_img_href[2] != '':
+            book['Ссылка на обложку'] = os.path.join(MEDIA_ROOT, f'{num}.jpg')
+            img_data = requests.get(title_href_img_href[2]).content
+            with open(os.path.join(MEDIA_ROOT, f'{num}.jpg'), 'wb') as f:
+                f.write(img_data)
+        else:
+            book['Ссылка на обложку'] = ''
         books_out[num] = book
         num += 1
     return books_out

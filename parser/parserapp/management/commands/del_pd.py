@@ -1,15 +1,18 @@
 from django.core.management.base import BaseCommand, CommandError
-from parserapp.models import Author, Book
+from parserapp.models import Author, Book, Comment
 from parser_author import create_soup, parse_soup
 import pprint
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        books = Book.objects.all()
+        # books = Book.objects.all()
+        Book.objects.all().delete()
+        Author.objects.all().delete()
+        Comment.objects.all().delete()
         num = 0
         book_out = []
-        for book in books:
-            print(book.img_href)
+        # for book in books:
+        #     print(book.img_href)
 
             # auth = [str(author) for author in book.authors.all()]
             # au = auth[0]

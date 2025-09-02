@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from parserapp.models import Author, Book
+from parserapp.models import Author, Book, Comment
 from parser_author import create_soup, parse_soup
 
 class Command(BaseCommand):
@@ -9,6 +9,7 @@ class Command(BaseCommand):
         books_out = parse_soup(soup)
         Book.objects.all().delete()
         Author.objects.all().delete()
+        Comment.objects.all().delete()
         for book in books_out:
             new_book = Book.objects.create(title=f'{books_out[book]['Название книги']}',
                                 content=f'{books_out[book]['Краткое содержание']}', href=f'{books_out[book]['Ссылка на книгу']}',img_href= f'{books_out[book]['Ссылка на обложку']}')
