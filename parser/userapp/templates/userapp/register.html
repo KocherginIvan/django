@@ -1,30 +1,26 @@
 {% extends "base.html" %}
 
 {% block titel %}
-<title>Комментарий к книге {{book.title}}</title>
+<title>Регистрация пользователя</title>
 
 {% endblock titel %}
 {% block header %}
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">{{book.title}}</h1>
-            {%for author in book.authors.all%}
-            <p class="lead fw-normal text-white-50 mb-0">{{author}}</p>
-            {%endfor%}
+            <h1 class="display-4 fw-bolder">Вход пользователя</h1>
+
         </div>
     </div>
 </header>
 {% endblock header %}
 {% block content %}
-<br>
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <form method="POST" id = 'commentForm'>
             {% csrf_token %}
             {#form.as_p#}
             {% for field in form %}
-
                 <p>{{field.label_tag}}</p>
             <hr>
                 {% for error in field.errors %}
@@ -32,9 +28,8 @@
                 {% endfor %}
             <p>{{field}}</p>
             {% endfor %}
-            <button type="submit" class="btn btn-primary" id="commentButton">Отправить комментарий</button>
+            <button type="submit" class="btn btn-primary" id="commentButton">Регистрация</button>
         </form>
     </div>
 </section>
-
 {% endblock %}

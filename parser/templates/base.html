@@ -15,6 +15,20 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="/">Начальная страница</a>
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'user:logout' %}">
+                    {% csrf_token %}
+                    <p class="navbar-brand"> {{user.username}}</p>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Выйти</button>
+                </form>
+                {% else %}
+                <div>
+                    <a class="navbar-brand" href="{% url 'user:login' %}">Вход</a>
+                    <hr>
+                    <a class="navbar-brand" href="{% url 'userapp:register' %}">Регистрация</a>
+                </div>
+                {% endif %}
 <!--                <a class="navbar-brand" href="/book_list">Список книг</a>-->
 <!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
 <!--                <div class="collapse navbar-collapse" id="navbarSupportedContent">-->

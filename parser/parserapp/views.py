@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -16,13 +17,14 @@ class WorkDetail(DetailView):
     model = Book
     template_name = 'parserapp/work.html'
 
-class CommentCreateView(CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'parserapp/comment.html'
+
     form_class = CommentForm
     def form_valid(self, form):
         print(form.cleaned_data)
-        new_comment = Comment.objects.create(name=f'{self.request.POST['name']}',
+        new_comment = Comment.objects.create(name=self.request.user,
                                              comment=f'{self.request.POST['comment']}')
         book = Book.objects.get(id=self.request.path.split('/')[-1])
         book.comments.add(new_comment)

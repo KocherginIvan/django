@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'parserapp'
+    'parserapp',
+    'userapp'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'tmp')
+
+AUTH_USER_MODEL = 'userapp.UserAuthor'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/user/login'
+LOGOUT_URL = '/user/logout'
