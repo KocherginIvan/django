@@ -1,10 +1,12 @@
 from django.db import models
 from userapp.models import UserAuthor
+# Create your models here.
+
 class NameStamp(models.Model):
     name = models.CharField(max_length=100)
     class Meta:
         abstract = True
-# Create your models here.
+
 class Author(NameStamp):
     def __str__(self):
         return self.name
@@ -25,4 +27,9 @@ class Book(models.Model):
     user = models.ForeignKey(UserAuthor, null= True, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
+    def is_img(self):
+        return bool(self.img_href)
+
+    def count_comments(self):
+        return self.comments.count()
 
