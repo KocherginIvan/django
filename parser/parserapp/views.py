@@ -10,6 +10,7 @@ from parserapp.models import Book, Comment
 
 # Create your views here.
 class BookListView(ListView):
+    paginate_by = 12
     model = Book
     template_name = 'parserapp/index.html'
 

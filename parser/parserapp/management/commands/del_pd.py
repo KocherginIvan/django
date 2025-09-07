@@ -6,9 +6,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # books = Book.objects.all()
-        Book.objects.all().delete()
-        Author.objects.all().delete()
-        Comment.objects.all().delete()
+        print(Book.objects.values('id').first()['id'])
+        print(Book.objects.filter(authors__name='Олег Сапфир'))
+        # Book.objects.all().delete()
+        # Author.objects.all().delete()
+        # Comment.objects.all().delete()
         num = 0
         book_out = []
         # for book in books:

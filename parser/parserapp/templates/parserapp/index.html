@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+<style>
+   a {
+    text-decoration: none;
+   }
+  </style>
 {% block titel %}
 <title>Список популярных книг</title>
 
 {% endblock titel %}
 {% block header %}
-<header class="bg-dark py-5">-->
+<header class="bg-dark py-2">-->
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Список популярных книг</h1>
@@ -13,31 +18,60 @@
 </header>
 {% endblock header %}
 {% block content %}
-        <section class="py-5">
-
-            <div class="container px-4 px-lg-0 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    {%for item in object_list%}
-<!--                    <a href="{% url 'parser:work' item.id %}">-->
-                    <a href="{% url 'parser:work' item.id %}">
-                    <div class="col mb-5">
-                        <div class="card h-100" >
-                            <div class="card-body p-0">
-                                <div class="text-center">
-                                    <img class="card-img-top" src='{{item.img_href.url}}' />
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{item.title}}</h5>
-                                    <h5 class="fw-semibold">Автор:</h5>
-                                    {%for author in item.authors.all%}
-                                    <h5 class="fw-semibold">{{author}}</h5>
-                                    {%endfor%}
-                                </div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-0 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-6 row-cols-md-6 row-cols-xl-6 justify-content-center">
+                {%for item in object_list%}
+                <a class='nav-link' href="{% url 'parser:work' item.id %}">
+                <div class="col mb-5">
+                    <div class="card h-100" >
+                        <div class="card-body p-0">
+                            <div class="text-center">
+                                <img class="card-img-top" src='{{item.img_href.url}}' />
+                                <!-- Product name-->
+                                <h4 class="fw-bolder text-black">{{item.title}}</h4>
+                                <h4 class="fw-semibold text-black">Автор:</h4>
+                                {%for author in item.authors.all%}
+                                <h4 class="fw-semibold text-black">{{author}}</h4>
+                                {%endfor%}
                             </div>
                         </div>
                     </div>
-                    {%endfor%}
                 </div>
+                </a>
+                {%endfor%}
             </div>
-        </section>
+            <hr>
+            <div class="pagination justify-content-center">
+                {% for object_list in page_obj %}
+                    {# Each "contact" is a Contact model object. #}
+                {% endfor %}
+                <p>
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class='nav-link'>
+                            <h4 class="fw-semibold"> Первая &nbsp&nbsp&nbsp</h4>
+                            </a>
+                            <a class='nav-link' href="?page={{ page_obj.previous_page_number }}">
+                                <h4 class="fw-semibold">Предыдущая &nbsp&nbsp&nbsp </h4>
+                            </a>
+                        {% endif %}
+
+                        <span class="current">
+                            <h4 class="fw-bolder">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.</h4>
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a class='nav-link' href="?page={{ page_obj.next_page_number }}">
+                                <h4 class="fw-semibold">&nbsp&nbsp&nbspСледующая &nbsp&nbsp&nbsp</h4></a>
+
+                            <a class='nav-link' href="?page={{ page_obj.paginator.num_pages }}">
+                                <h4 class="fw-semibold">Последняя &nbsp&nbsp&nbsp&raquo;</h4></a>
+                        {% endif %}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
