@@ -11,7 +11,7 @@ clear_rating.short_description = "Удалить Image"
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'img_href', 'href', 'content']
+    list_display = ['id','title', 'img_href', 'href', 'content']
     actions = [clear_rating]
 
 admin.site.register(Book, BookAdmin)

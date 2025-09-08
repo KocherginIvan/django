@@ -11,9 +11,8 @@ class Author(NameStamp):
     def __str__(self):
         return self.name
 
-class Comment(models.Model):
+class Comment(NameStamp, models.Model):
     comment = models.TextField()
-    name = models.ForeignKey(UserAuthor, null= True, on_delete=models.CASCADE)
     def __str__(self):
         return self.name, self.comment
 
@@ -29,6 +28,8 @@ class Book(models.Model):
         return self.title
     def is_img(self):
         return bool(self.img_href)
+    def get_comments(self):
+        return self.comments.all()
 
     def count_comments(self):
         return self.comments.count()

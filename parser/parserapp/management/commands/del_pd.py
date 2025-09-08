@@ -5,12 +5,15 @@ import pprint
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        # books = Book.objects.all()
-        print(Book.objects.values('id').first()['id'])
-        print(Book.objects.filter(authors__name='Олег Сапфир'))
+        books = Book.objects.all()
+        # books_auth = Book.objects.all().prefetch_related('authors')
+        # for book in books_auth:
+        #     print(book.authors.all())
+        # print(Book.objects.values('id').first()['id'])
+        # print(Book.objects.filter(authors__name='Олег Сапфир'))
         # Book.objects.all().delete()
         # Author.objects.all().delete()
-        # Comment.objects.all().delete()
+        Comment.objects.all().delete()
         num = 0
         book_out = []
         # for book in books:
