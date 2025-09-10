@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titel %}
+<title>{{object.title}}</title>
+
+{% endblock titel %}
+{% block header %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">{{object.title}}</h1>
+
+            {%for author in object.authors.all%}
+            <p class="lead fw-normal text-white-50 mb-0">{{author}}</p>
+            {%endfor%}
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <img src='{{object.img_href.url}}' width="300"/>
+                    <div class="text-start">
+                        <h5 class="fw-semibold">Аннотация</h5>
+                        <h5 class="fw-normal">{{object.content}}</h5>
+
+                    </div>
+            </div>
+</section>
+<div class="container px-4 px-lg-5 mt-5">
+<div class="text-start">
+<a href="{% url 'parser:comment' object.pk %}">
+    <button type="submit" class="btn btn-primary" id="commentButton">Добавить комментарий</button></a>
+</div>
+</div>
+<div class="container px-4 px-lg-5 mt-5">
+<div class="text-start">
+    <h5 class="fw-bolder">Коментарии:</h5>
+
+<section class="py-5">
+    {% if object.comments.all.count > 0 %}
+        {%for comment in object.comments.all%}
+                            <hr>
+                            <h5 class="fw-semibold">Автор комментария: {{comment.name}}</h5>
+                            <h5 class="fw-normal">{{comment.comment}}</h5>
+        {%endfor%}
+    {%endif%}
+</div>
+</div>
+</section>
+
+{% endblock %}
