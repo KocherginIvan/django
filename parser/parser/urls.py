@@ -19,10 +19,21 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
+from rest_framework import routers
+from parserapp.api_views import BookViewSet, CommentViewSet, AuthorViewSet
+router = routers.DefaultRouter()
+router.register(r'books', BookViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'authors', AuthorViewSet)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('parserapp.urls', namespace='parser')),
     path('user/', include('userapp.urls', namespace='user')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/v0/', include(router.urls)),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += debug_toolbar_urls()

@@ -22,7 +22,7 @@ class Book(models.Model):
     content = models.TextField()
     href = models.URLField()
     img_href = models.ImageField(upload_to='books', null=True, blank=True)
-    comments = models.ManyToManyField(Comment)
+    comments = models.ManyToManyField(Comment, related_name='books_comments')
     user = models.ForeignKey(UserAuthor, null= True, on_delete=models.CASCADE)
     def __str__(self):
         return self.title

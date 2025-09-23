@@ -42,7 +42,7 @@ def parse_soup(soup):
         book['Краткое содержание'] = content_book
         book['Ссылка на книгу'] = title_href_img_href[2]
         if title_href_img_href[2] != '':
-            book['Ссылка на обложку'] = os.path.join(MEDIA_ROOT, f'{num}.jpg')
+            book['Ссылка на обложку'] = f'{num}.jpg'
             img_data = requests.get(title_href_img_href[2]).content
             with open(os.path.join(MEDIA_ROOT, f'{num}.jpg'), 'wb') as f:
                 f.write(img_data)
