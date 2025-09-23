@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block titel %}
+<title>Регистрация пользователя</title>
+
+{% endblock titel %}
+{% block header %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Вход пользователя</h1>
+
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <form method="POST" id = 'commentForm'>
+            {% csrf_token %}
+            {#form.as_p#}
+            {% for field in form %}
+                <p>{{field.label_tag}}</p>
+            <hr>
+                {% for error in field.errors %}
+                    <p style="color: red">{{error}}</p>
+                {% endfor %}
+            <p>{{field}}</p>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" id="commentButton">Регистрация</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
