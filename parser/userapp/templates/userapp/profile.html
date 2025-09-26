@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titel %}
+<title>Профиль пользователя</title>
+
+{% endblock titel %}
+{% block header %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Профиль пользователя {{object.username}}</h1>
+
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+                <p>Токен: {%if object.auth_token %}
+                    <span id="token">{{object.auth_token}}</span>
+                    <hr>
+                    <button type="button" id='refresh-token-btn' class="btn btn-primary">Обновить токен</button>
+                    {% else %}
+                    <form action="{% url 'userapp:create_token' %}">
+                    <button type="submit" class="btn btn-primary">Создать токен</button>
+                    </form>
+                   {% endif %}</p>
+    </div>
+</section>
+{% endblock %}

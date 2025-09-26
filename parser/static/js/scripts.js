@@ -5,3 +5,11 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+$( document ).on('click', '#refresh-token-btn', function(event) {
+    $.ajax({
+                url: '/user/update-token-ajax/',
+                success: function (data) {
+                    $('#token').html(data.key);
+                },
+            });
+});
