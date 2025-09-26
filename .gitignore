@@ -1,0 +1,4 @@
+parser/db.sqlite3
+main.py
+books.json
+del.py
