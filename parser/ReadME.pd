@@ -1,0 +1,3 @@
+python manage.py parser_db обновление базы данных из парсера
+
+

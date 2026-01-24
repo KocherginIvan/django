@@ -11,6 +11,7 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     content = models.TextField()
     href = models.URLField()
+    img_href = models.URLField()
     def __str__(self):
         return self.title
 

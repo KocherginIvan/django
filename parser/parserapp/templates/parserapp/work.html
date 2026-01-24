@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block titel %}
+<title>Shop Homepage - Start Bootstrap Template</title>
+
+{% endblock titel %}
+{% block header %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">{{book.title}}</h1>
+            {%for author in book.authors.all%}
+            <p class="lead fw-normal text-white-50 mb-0">{{author}}</p>
+            {%endfor%}
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <img src='{{book.img_href}}' width="300"/>
+                    <div class="text-start">
+                        <h5 class="fw-bolder">Аннотация</h5>
+                        <h5 class="fw-semibold">{{book.content}}</h5>
+                    </div>
+            </div>
+</section>
+<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                    <div class="text-start">
+                        <h5 class="fw-bolder">Коментарий</h5>
+                        <h5 class="fw-bolder">{{name}}</h5>
+                        <h5 class="fw-semibold">{{comment}}</h5>
+                    </div>
+            </div>
+</section>
+<form method="POST" id = 'commentForm'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary" id="commentButton">Отправить коментарий</button>
+</form>
+{% endblock %}
