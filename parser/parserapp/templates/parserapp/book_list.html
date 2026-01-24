@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block titel %}
+<title>Shop Homepage - Start Bootstrap Template</title>
+{% endblock titel %}
+{% block header %}
+<header class="bg-dark py-5">-->
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Список популярных книг</h1>
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+        <section class="py-5">
+
+            <div class="container px-4 px-lg-0 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-4 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {%for item in object_list%}
+                    <a href="{% url 'parser:work' item.id %}">
+                    <div class="col mb-5">
+                        <div class="card h-100" >
+                            <div class="card-body p-0">
+                                <div class="text-center">
+                                    <img class="card-img-top" src='{{item.img_href.url}}' />
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{item.title}}</h5>
+                                    <h5 class="fw-semibold">Автор:</h5>
+                                    {%for author in item.authors.all%}
+                                    <h5 class="fw-semibold">{{author}}</h5>
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </section>
+{% endblock %}
+
